@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import OnBoardingView from '../views/OnBoardingView.vue';
 import LocationView from "../views/LocationView.vue";
+import MapView from "../views/MapView.vue";
+import TripView from "../views/TripView.vue";
 import axios from "axios";
 
 const router = createRouter({
@@ -40,6 +42,24 @@ const router = createRouter({
       meta: {
         requiresAuth: true,
         title: "Location",
+      },
+    },
+    {
+      path: "/map",
+      name: "map",
+      component: MapView,
+      meta: {
+        requiresAuth: true,
+        title: "Map",
+      },
+    },
+    {
+      path: "/trip",
+      name: "trip",
+      component: TripView,
+      meta: {
+        requiresAuth: true,
+        title: "Trip",
       },
     },
   ],
