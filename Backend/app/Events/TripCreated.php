@@ -12,12 +12,12 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class TripStatusChanged
+class TripCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
     public $trip;
     private $user;
-    private $status;
     /**
      * Create a new event instance.
      */
@@ -25,7 +25,6 @@ class TripStatusChanged
     {
         //
         $this->trip = $trip;
-        $this->status = $trip->status;
         $this->user = $user;
     }
 
@@ -36,14 +35,8 @@ class TripStatusChanged
      */
     public function broadcastOn(): array
     {
-        if($this->status == "started"){
-            return [
-                new Channel("drivers-trip-start"),
-            ];
-        }else{
-            return [
-                new Channel('drivers-trip-end'),
-            ];
-        }
+        return [
+            new Channel('drivers'),
+        ];
     }
 }

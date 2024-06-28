@@ -26,7 +26,8 @@ class LoginNeedsVerification extends Notification
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    // public function via(object $notifiable): array
+    public function via($notifiable): array
     {
         return [TwilioChannel::class];
     }

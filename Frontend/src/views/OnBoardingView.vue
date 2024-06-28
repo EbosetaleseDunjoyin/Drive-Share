@@ -9,6 +9,7 @@
                        
                         class=" bg-black dark:bg-white dark:text-black  px-3 inline-fex justify-center rounded-md border border-transparent py-2"
                         :disabled="data.isLoading"
+                        @click="handleStartDriving"
                         >
                         Start Driving
                     </button>
@@ -30,6 +31,7 @@
 <script setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
+import http from "@/helpers/http"
 
 const router = useRouter()
 
@@ -41,6 +43,25 @@ const handleFindARide = ()=>{
     router.push({
         name:"location"
     })
+}
+const handleStartDriving = ()=>{
+    data.isLoading = true;
+    http().get('/api/v1/driver')
+        .then((response)=>{
+            // console.log(response);
+            if(response.data.data.user.driver){
+                router.push({
+                    name:'standBy'
+                })
+            }else{
+                router.push({
+                    name:'driver'
+                })
+            }
+        }).catch((error) => {
+            console.error(error);
+        })
+   
 }
 
 

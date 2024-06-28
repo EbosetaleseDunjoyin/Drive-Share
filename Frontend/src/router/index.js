@@ -5,6 +5,8 @@ import OnBoardingView from '../views/OnBoardingView.vue';
 import LocationView from "../views/LocationView.vue";
 import MapView from "../views/MapView.vue";
 import TripView from "../views/TripView.vue";
+import StandByView from "../views/StandByView.vue";
+import DriverView from "../views/DriverView.vue";
 import axios from "axios";
 
 const router = createRouter({
@@ -60,6 +62,24 @@ const router = createRouter({
       meta: {
         requiresAuth: true,
         title: "Trip",
+      },
+    },
+    {
+      path: "/driver",
+      name: "driver",
+      component: DriverView,
+      meta: {
+        requiresAuth: true,
+        title: "Driver",
+      },
+    },
+    {
+      path: "/standBy",
+      name: "standBy",
+      component: StandByView,
+      meta: {
+        requiresAuth: true,
+        title: "Stand By",
       },
     },
   ],

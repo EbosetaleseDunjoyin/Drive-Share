@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Exception;
 use App\Models\Trip;
+use App\Events\TripCreated;
 use App\Events\TripAccepted;
 use Illuminate\Http\Request;
 use App\Events\TripStatusChanged;
@@ -63,7 +64,7 @@ class TripController extends BaseController
                 'destination_name' ,
             ]));
 
-
+            TripCreated::dispatch($trip,$user);
 
             return $this->sendResponse($trip, "Trip created successfully");
 
