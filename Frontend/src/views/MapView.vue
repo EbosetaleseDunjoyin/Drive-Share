@@ -2,7 +2,7 @@
     <div class="pt-16">
 
         <h1 class="text-3xl font-semibold mb-6 text-center">Here's your trip </h1>
-       <form action="#" method="POST" @submit.prevent="">
+       
             <div class="overflow-hidden shadow sm:rounded-md max-w-sm mx-auto text-left">
                 <div class="bg-white dark:bg-black-soft px-4 py-5 sm:p-6">
                     
@@ -36,14 +36,15 @@
                     </button>
                 </div>
             </div>
-        </form>
+        
     
   </div>
 </template>
 
 <script setup>
-import { ref,reactive, onMounted } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { useLocationStore } from "@/stores/location";
+import { useTripStore } from "@/stores/trip";
 import http  from "@/helpers/http";
 import { useRouter } from "vue-router";
 import axios from "axios";
@@ -52,6 +53,7 @@ import axios from "axios";
 
 
 const location = useLocationStore();
+const trip = useTripStore();
 const router = useRouter();
 const data = reactive({
     isLoading : false,
@@ -97,7 +99,7 @@ onMounted( async () => {
                 console.error(status)
             }
         })
-    })
+    });
 })
 
 
@@ -112,8 +114,9 @@ const handleConfirmTrip = () => {
         destination: location.destination.geometry  ,
         destination_name: location.destination.name,
     }).then((response) => {
-
+        console.log(response.data.data)
         data.isLoading = false;
+        trip.$patch({trip : response.data.data})
         router.push({
             name:"trip"
         })

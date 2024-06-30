@@ -23,6 +23,19 @@ export const useLocationStore = defineStore("location", () => {
     },
   });
 
+  const reset = () => {
+     
+     destination.name = "";
+     destination.address = "";
+     destination.geometry.lat = null;
+     destination.geometry.lng = null;
+
+     userLocation.geometry.lat = null;
+     userLocation.geometry.lng = null;
+
+
+  }
+
   const updateUsersLocation = async () => {
     const current = await getUserLocation();
 
@@ -37,5 +50,5 @@ export const useLocationStore = defineStore("location", () => {
     count.value++;
   }
 
-  return { destination, userLocation, updateUsersLocation };
+  return { destination, userLocation, updateUsersLocation, reset };
 });

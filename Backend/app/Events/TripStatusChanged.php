@@ -12,7 +12,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class TripStatusChanged
+class TripStatusChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $trip;
@@ -36,14 +36,8 @@ class TripStatusChanged
      */
     public function broadcastOn(): array
     {
-        if($this->status == "started"){
-            return [
-                new Channel("drivers-trip-start"),
-            ];
-        }else{
-            return [
-                new Channel('drivers-trip-end'),
-            ];
-        }
+        return [
+            new Channel('passenger_' . $this->user->id),
+        ];
     }
 }

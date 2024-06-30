@@ -95,7 +95,7 @@ class TripController extends BaseController
 
             $trip->load("driver.user");
 
-            TripAccepted::dispatch($trip,$user);
+            TripAccepted::dispatch($trip,$trip->user);
 
             return $this->sendResponse($trip, "Trip status updated");
 
@@ -154,7 +154,7 @@ class TripController extends BaseController
                 'driver_location' 
             ]));
 
-            TripLocationChanged::dispatch($trip, $user);
+            TripLocationChanged::dispatch($trip, $trip->user);
             
             return $this->sendResponse($trip, "Trip driver location updated");
 

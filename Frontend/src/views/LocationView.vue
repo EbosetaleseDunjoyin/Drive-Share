@@ -50,7 +50,7 @@ const data = reactive({
 });
 
 const setPlace = (e) => {
- console.log("This Location",e);
+//  console.log("This Location",e);
  location.$patch({
     destination:{
         name: e.name,

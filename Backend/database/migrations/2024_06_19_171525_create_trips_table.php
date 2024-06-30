@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained("users");
-            $table->foreignId("driver_id")->nullable()->constrained("drivers");
+            $table->foreignId("driver_id")->nullable()->constrained('drivers', 'user_id');
             $table->enum("status",["pending","started","completed"])->default("pending");
             $table->string('destination_name')->nullable();
             $table->json('origin')->nullable();

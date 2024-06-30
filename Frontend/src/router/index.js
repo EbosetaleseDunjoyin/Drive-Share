@@ -7,6 +7,7 @@ import MapView from "../views/MapView.vue";
 import TripView from "../views/TripView.vue";
 import StandByView from "../views/StandByView.vue";
 import DriverView from "../views/DriverView.vue";
+import DrivingView from "../views/DrivingView.vue";
 import axios from "axios";
 
 const router = createRouter({
@@ -71,6 +72,15 @@ const router = createRouter({
       meta: {
         requiresAuth: true,
         title: "Driver",
+      },
+    },
+    {
+      path: "/driving",
+      name: "driving",
+      component: DrivingView,
+      meta: {
+        requiresAuth: true,
+        title: "Driving",
       },
     },
     {
