@@ -52,9 +52,9 @@
                     </button>
                 </div>
             </div>
-             <div class="overflow-hidden shadow sm:rounded-md max-w-sm mx-auto text-left" v-if="trip.trip.status!== 'completed' ">
+             <div class="overflow-hidden shadow sm:rounded-md max-w-sm mx-auto text-left" v-if="trip.trip.status === 'completed' ">
                 <div class="bg-white dark:bg-black-soft px-4 py-5 sm:p-6">
-                    <p class="text-xl mb-2">Trip Completed!!!!</p>
+                    <p class="text-xl mb-2 text-center">Trip Completed!!!!</p>
                 </div>
                 
             </div>
@@ -146,7 +146,7 @@ const destinationIcon = {
 
 const handleTripStart = () => {
     data.isLoading =  true
-     http().post(`/api/v1/trip/${trip.trip.id}/driverLocation`,{
+     http().post(`/api/v1/trip/${trip.trip.id}/status`,{
         status : "started"
     })
     .then((response) => {
@@ -157,22 +157,22 @@ const handleTripStart = () => {
             geometry: response.data.data.destination
         }
        });
-       trip.$patch({trip : e.trip});
+       trip.$patch({trip : response.data.data});
 
     }).catch((error) => {
         console.error(error);
     });
-
+    data.isLoading = false
 
 }
 const handleTripEnd = () => {
     data.isLoading =  true
-      http().post(`/api/v1/trip/${trip.trip.id}/driverLocation`,{
+    http().post(`/api/v1/trip/${trip.trip.id}/status`,{
         status : "completed"
     })
     .then((response) => {
        data.status = "Trip Completed"
-       trip.$patch({trip : e.trip});
+        trip.$patch({ trip: response.data.data });
 
        setTimeout(() => {
 
@@ -187,6 +187,7 @@ const handleTripEnd = () => {
     }).catch((error) => {
         console.error(error);
     });
+    data.isLoading = false
 }
 
 

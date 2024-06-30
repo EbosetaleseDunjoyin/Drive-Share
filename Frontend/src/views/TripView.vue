@@ -92,7 +92,7 @@ onMounted( async () => {
         .listen('TripStatusChanged', (e) => {
              trip.$patch({trip : e.trip});
 
-            
+            console.log(e.trip)
              if(e.trip.status === "started"){
                  data.status = "You are on your way";
                  data.message = `You're headed to ${e.trip.destination_name}`;
